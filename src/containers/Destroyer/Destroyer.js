@@ -101,22 +101,25 @@ export default class Destroyer extends Component {
         const restartHandler = () => this.setState({text : this.state.original})
         
         return (
-            <React.Fragment>
+            <React.Fragment >
                 <div className={classes.Destroyer}>
+                    <div className={classes.GameArea}>
 
-                    {
-                        this.state.text.length < 1 &&
-                        <iframe src={this.state.gifurl} width="300" height="300" frameBorder="0" title="Congrats!"/>
-                    }
-                    {
-                        <Text 
-                        text={this.state.text}
-                        click={clickHandler}/>
-                    }
-                <div>
-                    <Button variant="contained" color="primary" onClick={restartHandler}>Restart</Button>
-                    <Button variant="contained" color="primary"  onClick={this.init}>Next game</Button>
-                </div>
+
+                        {
+                            this.state.text.length < 1 &&
+                            <iframe src={this.state.gifurl} width="300" height="300" frameBorder="0" title="Congrats!"/>
+                        }
+                        {
+                            <Text 
+                            text={this.state.text}
+                            click={clickHandler}/>
+                        }
+                    </div>
+                    <div>
+                        <Button variant="contained" color="primary" onClick={restartHandler}>Restart</Button>
+                        <Button variant="contained" color="primary"  onClick={this.init}>Next game</Button>
+                    </div>
                 </div>
             </React.Fragment>
         )
