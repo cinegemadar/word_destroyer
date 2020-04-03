@@ -1,0 +1,26 @@
+.Character
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.Vowel
+{
+    background-color: blueviolet;
+}
+
+.Consonant
+{
+    background-color: lawngreen;
+}
+
+.Space
+{
+    background: blueviolet;
+    background: linear-gradient(to top right, blueviolet, lawngreen);
+}
