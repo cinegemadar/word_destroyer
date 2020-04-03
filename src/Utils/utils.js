@@ -1,3 +1,7 @@
+export function getRandomArbitrary(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+}
+
 export function getCharacterType(c)
 {
     if(c === ' ') return "space"
