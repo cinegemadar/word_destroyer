@@ -106,7 +106,7 @@ export default class Destroyer extends Component {
 
                     {
                         this.state.text.length < 1 &&
-                        <iframe src={this.state.gifurl} width="480" height="480" frameBorder="0" title="Congrats!"/>
+                        <iframe src={this.state.gifurl} width="300" height="300" frameBorder="0" title="Congrats!"/>
                     }
                     {
                         <Text 
