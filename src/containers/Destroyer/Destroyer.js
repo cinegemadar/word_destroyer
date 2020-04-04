@@ -32,17 +32,17 @@ export default class Destroyer extends Component {
     getWords() {
         axios.get("https://random-word-api.herokuapp.com/word?number=2")
         .then( res => {
-            const TEXT = res.data.join(' ') 
+            const TEXT = res.data.join(' ')
             this.setState({text : TEXT})
             this.setState({original : TEXT})
         })      
     }
 
     getGif() {
-        axios.get("https://api.giphy.com/v1/gifs/search?api_key=Du0FuHD4rmob8q794e27oGs4H3ndA1Vu&q=congrats")
+        axios.get("https://api.giphy.com/v1/gifs/search?api_key=Du0FuHD4rmob8q794e27oGs4H3ndA1Vu&q=congrats?limit=300")
         .then( res => {
             console.log(res)
-            if(res.data.pagination["total_count"] > 0)
+            if(res.data.pagination.count > 0)
             {
                 const id = getRandomArbitrary(0, res.data.pagination.count)
                 console.log("id: ", id)
@@ -59,7 +59,8 @@ export default class Destroyer extends Component {
         const removeChar = (start_index, type, index, array, count) => {
             // Stop criterias:
             const endOfArray = index === array.length
-            const typeChange = !('space' === getCharacterType(array[index]) || type === getCharacterType(array[index]))
+            const CURRENT_TYPE = getCharacterType(array[index])
+            const typeChange = !('space' === CURRENT_TYPE || type === CURRENT_TYPE)
             const exit = endOfArray || typeChange
             if(exit)
             {
