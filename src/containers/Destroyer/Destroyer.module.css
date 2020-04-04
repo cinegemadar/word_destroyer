@@ -6,6 +6,13 @@
     align-items: center;
 }
 
+.ControlPanel{
+    overflow: hidden;
+    display: flexbox;
+    flex-flow: row;
+    justify-content: space-evenly;
+}
+
 .GameArea {
     overflow: hidden;
     width: 300px;

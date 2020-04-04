@@ -39,7 +39,7 @@ export default class Destroyer extends Component {
     }
 
     getGif() {
-        axios.get("https://api.giphy.com/v1/gifs/search?api_key=Du0FuHD4rmob8q794e27oGs4H3ndA1Vu&q=congrats?limit=300")
+        axios.get("https://api.giphy.com/v1/gifs/search?api_key=Du0FuHD4rmob8q794e27oGs4H3ndA1Vu&q=you+won?limit=300")
         .then( res => {
             console.log(res)
             if(res.data.pagination.count > 0)
@@ -56,12 +56,12 @@ export default class Destroyer extends Component {
     
     render() {
 
-        const removeChar = (start_index, type, index, array, count) => {
-            // Stop criterias:
-            const endOfArray = index === array.length
+        const removeBlock = (start_index, type, index, array, count) => {
             const CURRENT_TYPE = getCharacterType(array[index])
+            // Stop criterias:
+            const limitReached = index === array.length
             const typeChange = !('space' === CURRENT_TYPE || type === CURRENT_TYPE)
-            const exit = endOfArray || typeChange
+            const exit = limitReached || typeChange
             if(exit)
             {
                 if(count > 1) array.splice(start_index, count)
@@ -69,23 +69,25 @@ export default class Destroyer extends Component {
             }
             else
             {
-                removeChar(start_index, type, index+1, array, count+1)
+                removeBlock(start_index, type, index+1, array, count+1)
             }
         }
 
         const beginingOfBlock = (index, type, array) =>
         {
-            const currentType = getCharacterType(array[index])
-            if(index === 0)
+            const CURRENT_TYPE = getCharacterType(array[index])
+            // Stop criterias:
+            const limitReached = index === -1
+            const typeChange = !('space' === CURRENT_TYPE || type === CURRENT_TYPE)
+            const exit = limitReached || typeChange
+            if(exit)
             {
-                if(currentType === type) return 0
-                return 1
+                return index + 1
             }
-            if (currentType === type || currentType === 'space')
+            else
             {
                 return beginingOfBlock(index-1, type, array)
             }
-            return index+1
         }
 
 
@@ -94,7 +96,7 @@ export default class Destroyer extends Component {
             const TYPE = getCharacterType(textArray[index])
             if('space' === TYPE) return
             const START_INDEX = beginingOfBlock(index, TYPE, textArray)
-            removeChar(START_INDEX, TYPE, START_INDEX, textArray, 0)
+            removeBlock(START_INDEX, TYPE, START_INDEX, textArray, 0)
             this.setState({text : textArray.join('')})
         }
 
@@ -102,8 +104,19 @@ export default class Destroyer extends Component {
         
         return (
             <React.Fragment >
-                <div className={classes.Destroyer}>
-                    <div className={classes.GameArea}>
+                <div className={classes.Destroyer}> 
+                    <div>
+                        <Text 
+                            text="Dora" 
+                            click={() => null}/>
+                        <Text 
+                            text="destroyes" 
+                            click={() => null}/>
+                        <Text 
+                            text="the word" 
+                            click={() => null}/>
+                    </div>
+                    <div className={classes.GameArea}> {/*TODO: move to GamingArea.js*/}
 
 
                         {
@@ -116,7 +129,7 @@ export default class Destroyer extends Component {
                             click={clickHandler}/>
                         }
                     </div>
-                    <div>
+                    <div className={classes.ControlPanel}> {/*TODO: move to ControlPanel.js*/}
                         <Button variant="contained" color="primary" onClick={restartHandler}>Restart</Button>
                         <Button variant="contained" color="primary"  onClick={this.init}>Next game</Button>
                     </div>
