@@ -107,13 +107,13 @@ export default class Destroyer extends Component {
                 <div className={classes.Destroyer}> 
                     <div>
                         <Text 
-                            text="Dora" 
+                            text="DORA" 
                             click={() => null}/>
                         <Text 
-                            text="destroyes" 
+                            text="DESTROYES" 
                             click={() => null}/>
                         <Text 
-                            text="the word" 
+                            text="THE WORD" 
                             click={() => null}/>
                     </div>
                     <div className={classes.GameArea}> {/*TODO: move to GamingArea.js*/}

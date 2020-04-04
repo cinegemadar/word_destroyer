@@ -14,6 +14,6 @@ export function getRandomArbitrary(min, max) {
 export function getCharacterType(char)
 {
     if(char === ' ') return "space"
-    if(["a","e","i","o","u"].indexOf(char) >= 0 ) return "vowel"
+    if(["a","e","i","o","u"].indexOf(char.toLowerCase()) >= 0 ) return "vowel"
     return "consonant" 
 }
