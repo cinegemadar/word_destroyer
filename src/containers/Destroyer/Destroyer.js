@@ -56,47 +56,49 @@ export default class Destroyer extends Component {
     
     render() {
 
-        const removeBlock = (start_index, type, index, array, count) => {
-            const CURRENT_TYPE = getCharacterType(array[index])
-            // Stop criterias:
-            const limitReached = index === array.length
-            const typeChange = !('space' === CURRENT_TYPE || type === CURRENT_TYPE)
-            const exit = limitReached || typeChange
-            if(exit)
-            {
-                if(count > 1) array.splice(start_index, count)
-                return
-            }
-            else
-            {
-                removeBlock(start_index, type, index+1, array, count+1)
-            }
-        }
-
-        const beginingOfBlock = (index, type, array) =>
+        /**
+         * Find begining or end of adjacent elements in array. 
+         * @param {*} index start point of search
+         * @param {*} type type of elements
+         * @param {*} array 
+         * @param {*} limit function to decide if reached border
+         * @param {*} step -1: find begining 1: find end
+         */
+        const findBorder = (index, type, array, limit, step) =>
         {
-            const CURRENT_TYPE = getCharacterType(array[index])
-            // Stop criterias:
-            const limitReached = index === -1
-            const typeChange = !('space' === CURRENT_TYPE || type === CURRENT_TYPE)
-            const exit = limitReached || typeChange
-            if(exit)
-            {
-                return index + 1
+            /**
+             * Returns true if should exit recursion.
+             * @param {*} index 
+             * @param {*} type 
+             * @param {*} array 
+             * @param {*} limit 
+             */
+            const shouldExit = (index, type, array, limit) => {
+                return (index === limit ||
+                    !('space' === getCharacterType(array[index]) || type === getCharacterType(array[index])))
             }
-            else
-            {
-                return beginingOfBlock(index-1, type, array)
-            }
-        }
 
+            if (shouldExit(index, type, array, limit(array)))
+                {
+                    return index - step
+                }
+                else
+                {
+                    return findBorder(index+step, type, array, limit, step)
+                }
+        }
 
         const clickHandler = (index) => {
             let textArray = this.state.text.split('')
             const TYPE = getCharacterType(textArray[index])
             if('space' === TYPE) return
-            const START_INDEX = beginingOfBlock(index, TYPE, textArray)
-            removeBlock(START_INDEX, TYPE, START_INDEX, textArray, 0)
+            let start_index = findBorder(index, TYPE, textArray, (_) => -1, -1)
+            let end_index = findBorder(index, TYPE, textArray, (a) => a.length,1)
+            if(end_index - start_index > 0)
+            {
+                const COUNT = end_index - start_index + 1
+                textArray.splice(start_index, COUNT)
+            }
             this.setState({text : textArray.join('')})
         }
 
