@@ -11,16 +11,15 @@
 
 .Vowel
 {
-    background-color: blueviolet;
+    background-color: #FC766AFF;
 }
 
 .Consonant
 {
-    background-color: lawngreen;
+    background-color: #5B84B1FF;
 }
 
 .Space
 {
-    background: blueviolet;
-    background: linear-gradient(to top right, blueviolet, lawngreen);
+    background: linear-gradient(to top right, #FC766AFF, #5B84B1FF);
 }

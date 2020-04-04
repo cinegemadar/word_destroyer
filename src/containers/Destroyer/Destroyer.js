@@ -51,8 +51,7 @@ export default class Destroyer extends Component {
         })
     }
     componentDidMount() {
-        this.getWords()
-        this.getGif()
+        this.init()
     }
     
     render() {
