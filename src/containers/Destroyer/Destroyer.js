@@ -39,7 +39,7 @@ export default class Destroyer extends Component {
     }
 
     getGif() {
-        axios.get("https://api.giphy.com/v1/gifs/search?api_key=Du0FuHD4rmob8q794e27oGs4H3ndA1Vu&q=you+won?limit=300")
+        axios.get("https://api.giphy.com/v1/gifs/search?api_key=Du0FuHD4rmob8q794e27oGs4H3ndA1Vu&q=congrats?limit=300")
         .then( res => {
             console.log(res)
             if(res.data.pagination.count > 0)
